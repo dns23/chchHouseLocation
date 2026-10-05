@@ -27,17 +27,24 @@ let counts = {};           // id -> Uint16Array per grid cell
 const map = L.map('map', { zoomControl: true, preferCanvas: true })
   .fitBounds([[BBOX.south + 0.06, BBOX.west + 0.08], [BBOX.north - 0.06, BBOX.east - 0.06]]);
 
+// Optional: CARTO basemaps need a free API key since Aug 2026 (https://carto.com/basemaps).
+// Paste one here to add the CARTO light map; otherwise only keyless OpenStreetMap tiles are offered.
+const CARTO_API_KEY = '';
+
+const OSM_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const basemaps = {
-  'Light (CARTO)': L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    maxZoom: 19, subdomains: 'abcd',
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  }),
-  'OpenStreetMap': L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }),
+  // Greyscaled via CSS (.tiles-grey) so the coloured overlay stands out.
+  'OpenStreetMap (grey)': L.tileLayer(OSM_URL, { maxZoom: 19, attribution: OSM_ATTR, className: 'tiles-grey' }),
+  'OpenStreetMap': L.tileLayer(OSM_URL, { maxZoom: 19, attribution: OSM_ATTR }),
 };
-basemaps['Light (CARTO)'].addTo(map);
+if (CARTO_API_KEY) {
+  basemaps['Light (CARTO)'] = L.tileLayer(`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`, {
+    maxZoom: 19, subdomains: 'abcd',
+    attribution: `${OSM_ATTR} &copy; <a href="https://carto.com/attributions">CARTO</a>`,
+  });
+}
+basemaps['OpenStreetMap (grey)'].addTo(map);
 L.control.layers(basemaps, null, { position: 'topright' }).addTo(map);
 L.control.scale({ imperial: false }).addTo(map);
 

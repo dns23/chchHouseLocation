@@ -109,3 +109,5 @@ button:disabled { opacity: .5; cursor: wait; }
   #toggle-panel { display: inline-block; }
   #map { min-height: 45%; }
 }
+
+.tiles-grey { filter: grayscale(1) contrast(0.9) brightness(1.05); }

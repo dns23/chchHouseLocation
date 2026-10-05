@@ -54,7 +54,7 @@ The sliders, scoring, legend and popup pick it up automatically.
 | Data | Source | Licence |
 |---|---|---|
 | Cafés, pubs, bars | [OpenStreetMap](https://www.openstreetmap.org) via the [Overpass API](https://overpass-api.de) (`amenity=cafe`, `amenity=pub\|bar\|biergarten`) | ODbL |
-| Basemap tiles | [CARTO Positron](https://carto.com/basemaps) (light) or OpenStreetMap standard | CARTO / ODbL |
+| Basemap tiles | OpenStreetMap standard tiles (shown greyscale by default). [CARTO](https://carto.com/basemaps) is optional and needs a free API key: set `CARTO_API_KEY` in `js/app.js` | ODbL |
 
 **Suggested next parameters**
 
