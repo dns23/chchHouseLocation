@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Christchurch House Finder</title>
+  <meta name="description" content="Interactive map of Christchurch, NZ for weighing up where to buy a house.">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <aside id="panel">
+    <header>
+      <h1>Christchurch House Finder</h1>
+      <button id="toggle-panel" type="button" aria-label="Toggle settings" aria-expanded="true">Settings</button>
+    </header>
+    <div id="panel-body">
+      <p class="hint">Each place within the radius is a circle. Where circles overlap, the colour gets stronger. Click the map to see the numbers for a spot.</p>
+
+      <section>
+        <h2>Parameters</h2>
+        <div id="layer-controls"></div>
+      </section>
+
+      <section>
+        <h2>Display</h2>
+        <label class="row">
+          <span>Colour by</span>
+          <select id="mode">
+            <option value="score">Combined score</option>
+            <option value="blend">Parameter colours</option>
+          </select>
+        </label>
+        <label class="slider">
+          <span>Full marks at <output id="sat-out"></output> places in range</span>
+          <input id="saturation" type="range" min="1" max="20" step="1">
+        </label>
+        <label class="slider">
+          <span>Overlay opacity <output id="opacity-out"></output></span>
+          <input id="opacity" type="range" min="0.1" max="1" step="0.05">
+        </label>
+        <label class="row check">
+          <input id="show-pois" type="checkbox"> <span>Show places as dots</span>
+        </label>
+        <div id="legend"></div>
+      </section>
+
+      <section class="foot">
+        <p id="status">Loading data…</p>
+        <button id="refresh" type="button">Refresh live from OpenStreetMap</button>
+        <button id="reset" type="button" class="secondary">Reset settings</button>
+        <p class="small">Distances are straight-line. Real walking routes are usually 20–30% longer.
+          Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.</p>
+      </section>
+    </div>
+  </aside>
+  <main id="map" aria-label="Map of Christchurch"></main>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
